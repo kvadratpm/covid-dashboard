@@ -1,0 +1,13 @@
+.table-wrapper {
+  border: 2px solid red;
+  width: 400px;
+  overflow: hidden;
+  .table-countries {
+    height: 800px;
+    overflow: auto;
+    .table-countries__country {
+      border: 2px solid green;
+      margin: 1px;
+    }
+  }
+}

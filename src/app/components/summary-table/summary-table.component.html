@@ -1,0 +1,15 @@
+<section class="table-wrapper">
+  <section class="table-world">
+    <h2>Total confirmed:
+      {{httpService.totalConfirmed['TotalConfirmed'] | json | number}}
+    </h2>
+    <hr/>
+    <article class="table-countries">
+      <div class="table-countries__country" *ngFor="let country of httpService.countriesConfirmed">
+        {{country['Country']}}
+        <br>
+        {{country['TotalConfirmed']}}
+      </div>
+    </article>
+  </section>
+</section>
