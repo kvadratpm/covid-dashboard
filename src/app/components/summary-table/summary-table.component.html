@@ -5,7 +5,8 @@
     </h2>
     <hr/>
     <article class="table-countries">
-      <div class="table-countries__country" *ngFor="let country of httpService.countriesConfirmed">
+      <input type="text" [(ngModel)]="currentField">
+      <div class="table-countries__country" *ngFor="let country of httpService.countries | filter:currentField | sort">
         {{country.Country}}
         <br>
         {{country.TotalConfirmed}}

@@ -19,7 +19,6 @@ export interface Country {
   NewRecovered: number;
   TotalRecovered: number;
   Date: Date;
-  Premium: {};
 }
 
 export interface Global {
@@ -50,13 +49,4 @@ export class HttpRequestsService {
         this.countries = response.Countries;
       });
   }
-
-  get totalConfirmed(): {} {
-    return this.global;
-  }
-
-  get countriesConfirmed(): Country[] {
-    return this.countries;
-  }
-
 }

@@ -8,6 +8,8 @@ import { Country, HttpRequestsService } from 'src/app/services/http-requests.ser
 })
 export class SummaryTableComponent implements OnInit {
 
+  currentField!: string;
+
   constructor(public httpService: HttpRequestsService) {
   }
 

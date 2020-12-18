@@ -4,16 +4,22 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { SummaryTableComponent } from './components/summary-table/summary-table.component';
 import { MapComponent } from './components/map/map.component';
+import { SortPipe } from './pipes/sort.pipe';
+import { FormsModule } from '@angular/forms';
+import { FilterPipe } from './pipes/filter.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     SummaryTableComponent,
-    MapComponent
+    MapComponent,
+    SortPipe,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
