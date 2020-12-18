@@ -14,6 +14,4 @@ export class SummaryTableComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     await this.httpService.pullRequest();
   }
-
-
 }

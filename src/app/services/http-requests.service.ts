@@ -4,21 +4,31 @@ import { HttpClient } from '@angular/common/http';
 
 
 export interface Summary {
-  Global: {};
+  Global: Global;
   Countries: Country[];
 }
 
 export interface Country {
-  country: string;
-  countryCode: string;
-  slug: string;
-  newConfirmed: number;
-  totalConfirmed: number;
-  newDeaths: number;
-  totalDeaths: number;
-  newRecovered: number;
-  totalRecovered: number;
-  date: Date;
+  Country: string;
+  CountryCode: string;
+  Slug: string;
+  NewConfirmed: number;
+  TotalConfirmed: number;
+  NewDeaths: number;
+  TotalDeaths: number;
+  NewRecovered: number;
+  TotalRecovered: number;
+  Date: Date;
+  Premium: {};
+}
+
+export interface Global {
+  NewConfirmed: number;
+  TotalConfirmed: number;
+  NewDeaths: number;
+  TotalDeaths: number;
+  NewRecovered: number;
+  TotalRecovered: number;
 }
 
 @Injectable({
@@ -27,10 +37,8 @@ export interface Country {
 
 export class HttpRequestsService {
 
-  summary: Summary = {
-    Global: {},
-    Countries: []
-  };
+  global!: Global;
+  countries!: Country[];
 
   constructor(public http: HttpClient) {
   }
@@ -38,17 +46,17 @@ export class HttpRequestsService {
   pullRequest(): void {
     this.http.get<Summary>('https://api.covid19api.com/summary')
       .subscribe((response) => {
-        this.summary.Global = response.Global;
-        this.summary.Countries = response.Countries;
+        this.global = response.Global;
+        this.countries = response.Countries;
       });
   }
 
   get totalConfirmed(): {} {
-    return this.summary.Global;
+    return this.global;
   }
 
   get countriesConfirmed(): Country[] {
-    return this.summary.Countries;
+    return this.countries;
   }
 
 }
