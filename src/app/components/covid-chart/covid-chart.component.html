@@ -3,3 +3,13 @@
   <canvas id="myChart"></canvas>
 
 </div>
+<div class="selector">
+  <div class="material-icons" (click)="go(1)" >arrow_left</div>
+
+  <span>
+    {{ chart_type }}
+  </span>
+
+  <div class="material-icons" (click)="go(-1)">arrow_right</div>
+
+</div>

@@ -1,37 +1,58 @@
 import { Component, OnInit } from '@angular/core';
-import { Chart } from 'chart.js';
+import { Chart, ChartColor } from 'chart.js';
+
 import {Summary,HttpRequestsService, Global, Country} from "../../services/http-requests.service";
-import { SelectorComponent } from '../selector/selector.component';
 
 @Component({
   selector: 'app-covid-chart',
   templateUrl: './covid-chart.component.html',
-  styleUrls: ['./covid-chart.component.scss'],
-  providers: [SelectorComponent]
+  styleUrls: ['./covid-chart.component.scss']
 })
 
 export class CovidChartComponent implements OnInit {
 
   global:Global | undefined;
   countries:Country[] | undefined;
+  public chart_type: string = 'Deaths'
+  private types = ['Confirmed', 'Deaths', 'Recovered'];
+  private i:number = 1;
+
+  constructor(private httpService:HttpRequestsService) {}
 
 
-  constructor(private httpService:HttpRequestsService, public type:SelectorComponent) {}
 
+  go(n: number){
+    this.i = this.i + n;
+    if (this.i > 2){
+      this.i = 3 - this.i;
+
+    } else if(this.i < 0){
+      this.i = 1 - this.i;
+    }
+    this.chart_type = this.types[this.i]
+    this.draw(this.chart_type);
+
+  }
     ngOnInit() {
-    const url = 'https://api.covid19api.com/country/russia/status/'
+      console.log("SS")
+      this.draw('Deaths');
 
-    
-    this.httpService.GET<Summary>(url + 'deaths').subscribe(summary=>{
+  };
+  draw(type:string){
+    let color:ChartColor;
+    if (type === 'Confirmed'){
+      color = 'rgba(255, 99, 132, 1)';
+    } else if (type === 'Recovered'){
+      color = '#31E981'
+    }
+    const url = 'https://api.covid19api.com/country/russia/status/'
+    this.httpService.GET<Summary>(url + type.toLowerCase()).subscribe(summary=>{
       const covid_data: any = summary;
       const len: number = covid_data.length;
 
-
       let myChart = new Chart("myChart", {
-
         type: 'line',
         data: {
-
             labels: [
               covid_data[len - 7].Date.slice(0,10).replace(/-/gi, '.'),
               covid_data[len - 6].Date.slice(0,10).replace(/-/gi, '.'),
@@ -42,7 +63,7 @@ export class CovidChartComponent implements OnInit {
               covid_data[len - 1].Date.slice(0,10).replace(/-/gi, '.')
             ],
             datasets: [{
-                label: 'Death',
+                label: type,
                 data: [
                   covid_data[len - 7].Cases,
                   covid_data[len - 6].Cases,
@@ -53,16 +74,16 @@ export class CovidChartComponent implements OnInit {
                   covid_data[len - 1].Cases,
                 ],
                 backgroundColor: [
-                    'rgba(255, 99, 132, 1)',
+                    color,
                 ],
                 borderColor: [
-                    'rgba(255, 0, 0, 1)',
-                    'rgba(255, 0, 0, 1)',
-                    'rgba(255, 0, 0, 1)',
-                    'rgba(255, 0, 0, 1)',
-                    'rgba(255, 0, 0, 1)',
-                    'rgba(255, 0, 0, 1)',
-                    'rgba(255, 0, 0, 1)',
+                    color,
+                    color,
+                    color,
+                    color,
+                    color,
+                    color,
+                    color,
                 ],
                 borderWidth: 0
             }]
@@ -80,13 +101,7 @@ export class CovidChartComponent implements OnInit {
 
     })
 
-  };
-  // ngDoCheck(changes: SelectorComponent) {
-  //   console.log(changes);
-  // }
-
-
-
+  }
 
 }
 
