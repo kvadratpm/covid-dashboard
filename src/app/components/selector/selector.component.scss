@@ -1,0 +1,19 @@
+.selector{
+  user-select: none;
+  width: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  span{
+    margin: 0 2rem;
+    text-align: center;
+    width: 200px;
+  }
+  .material-icons{
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  .material-icons:hover{
+    opacity: .4;
+  }
+}

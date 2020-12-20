@@ -1,5 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 
 
@@ -48,5 +49,10 @@ export class HttpRequestsService {
         this.global = response.Global;
         this.countries = response.Countries;
       });
+  }
+
+  GET<T>(h: any): Observable<T> {
+
+    return this.http.get<T>(h);
   }
 }
