@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { SummaryTableComponent } from './components/summary-table/summary-table.component';
 import { MapComponent } from './components/map/map.component';
 import { SortPipe } from './pipes/sort.pipe';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FilterPipe } from './pipes/filter.pipe';
 
 @NgModule({
@@ -19,7 +19,8 @@ import { FilterPipe } from './pipes/filter.pipe';
   imports: [
     BrowserModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

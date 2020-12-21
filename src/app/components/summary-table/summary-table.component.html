@@ -5,7 +5,10 @@
     </h2>
     <hr/>
     <article class="table-countries">
-      <input type="text" [(ngModel)]="currentField">
+      <input list="countries" id="table-countries__input" [(ngModel)]="currentField">
+      <datalist id="countries">
+        <option *ngFor="let country of httpService.countries | filter:currentField | sort">{{country.Country}}</option>
+      </datalist>
       <div class="table-countries__country" *ngFor="let country of httpService.countries | filter:currentField | sort">
         {{country.Country}}
         <br>
