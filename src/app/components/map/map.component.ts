@@ -1,21 +1,25 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import * as L from 'leaflet';
+import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
+import * as Mapboxgl from 'mapbox-gl';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements OnInit, AfterViewInit {
+export class MapComponent implements OnInit {
 
-  @ViewChild('map')
-  private mapContainer!: ElementRef<HTMLElement>;
+  mapboxgl!: Mapboxgl.Map;
 
-  constructor() { }
+  constructor() {
+   }
 
   ngOnInit(): void {
-  }
+    (Mapboxgl as typeof Mapboxgl).accessToken = environment.mapBoxKey;
 
-  ngAfterViewInit(): void {
+    const map = new Mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/streets-v11'
+      });
   }
 
 }
