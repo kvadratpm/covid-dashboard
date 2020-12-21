@@ -7,6 +7,8 @@ import { MapComponent } from './components/map/map.component';
 import { SortPipe } from './pipes/sort.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FilterPipe } from './pipes/filter.pipe';
+import { CovidChartComponent } from './components/covid-chart/covid-chart.component';
+import { SelectorComponent } from './components/selector/selector.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,9 @@ import { FilterPipe } from './pipes/filter.pipe';
     SummaryTableComponent,
     MapComponent,
     SortPipe,
-    FilterPipe
+    FilterPipe,
+    CovidChartComponent,
+    SelectorComponent
   ],
   imports: [
     BrowserModule,
