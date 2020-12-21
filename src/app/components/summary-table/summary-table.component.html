@@ -10,7 +10,7 @@
         <option *ngFor="let country of httpService.countries | filter:currentField | sort">{{country.Country}}</option>
       </datalist>
       <div class="table-countries__country" *ngFor="let country of httpService.countries | filter:currentField | sort">
-        {{country.Country}}
+        {{country.Country}} <img src="https://www.countryflags.io/{{country.CountryCode}}/flat/32.png">
         <br>
         {{country.TotalConfirmed}}
       </div>
