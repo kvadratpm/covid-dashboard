@@ -30,15 +30,17 @@ export class CovidChartComponent implements OnInit {
       this.i = 1 - this.i;
     }
     this.chart_type = this.types[this.i]
-    this.draw(this.chart_type);
+    this.draw();
 
   }
-    ngOnInit() {
-      console.log("SS")
-      this.draw('Deaths');
-
+  ngOnInit() {
+    console.log("SS")
+    this.chart_type = 'Deaths';
+    this.draw();
   };
-  draw(type:string){
+  
+  draw(){
+    const type = this.chart_type;
     let color:ChartColor;
     if (type === 'Confirmed'){
       color = 'rgba(255, 99, 132, 1)';
