@@ -42,6 +42,11 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "leaflet",
+              "chart.js",
+              "ngx-mapbox-gl"
+            ],
             "outputPath": "dist/covid-dashboard",
             "index": "src/index.html",
             "main": "src/main.ts",
