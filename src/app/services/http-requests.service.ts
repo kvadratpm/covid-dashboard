@@ -37,18 +37,11 @@ export interface Global {
 
 export class HttpRequestsService {
 
-  global!: Global;
-  countries!: Country[];
-
   constructor(public http: HttpClient) {
   }
 
-  pullRequest(): void {
-    this.http.get<Summary>('https://api.covid19api.com/summary')
-      .subscribe((response) => {
-        this.global = response.Global;
-        this.countries = response.Countries;
-      });
+  pullRequest(): Observable<Summary> {
+    return this.http.get<Summary>('https://api.covid19api.com/summary');
   }
 
   GET<T>(h: any): Observable<T> {

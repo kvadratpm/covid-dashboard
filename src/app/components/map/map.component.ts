@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import * as Mapboxgl from 'mapbox-gl';
+import { MapboxService } from 'src/app/services/mapbox.service';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -10,7 +11,7 @@ export class MapComponent implements OnInit {
 
   mapboxgl!: Mapboxgl.Map;
 
-  constructor() {
+  constructor(private mapbox: MapboxService) {
    }
 
   ngOnInit(): void {
@@ -18,8 +19,12 @@ export class MapComponent implements OnInit {
 
     const map = new Mapboxgl.Map({
       container: 'map',
-      style: 'mapbox://styles/mapbox/streets-v11'
-      });
+      style: 'mapbox://styles/mapbox/dark-v10',
+      center: [20, 40],
+      zoom: 1
+    });
+    map.addControl(new Mapboxgl.NavigationControl());
+    console.log(this.mapbox.search_word('Russia'));
   }
 
 }

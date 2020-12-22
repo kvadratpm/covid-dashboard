@@ -1,19 +1,20 @@
 <section class="table-wrapper">
-  <section class="table-world">
+  <section class="table-world" *ngIf="!loading; else loader">
     <h2>Total confirmed:
-      {{httpService.global.TotalConfirmed | json | number}}
+      {{global.TotalConfirmed | json | number}}
     </h2>
     <hr/>
     <article class="table-countries">
       <input list="countries" id="table-countries__input" [(ngModel)]="currentField">
       <datalist id="countries">
-        <option *ngFor="let country of httpService.countries | filter:currentField | sort">{{country.Country}}</option>
+        <option *ngFor="let country of countries | filter:currentField | sort">{{country.Country}}</option>
       </datalist>
-      <div class="table-countries__country" *ngFor="let country of httpService.countries | filter:currentField | sort">
+      <div class="table-countries__country" *ngFor="let country of countries | filter:currentField | sort">
         {{country.Country}} <img src="https://www.countryflags.io/{{country.CountryCode}}/flat/32.png">
         <br>
         {{country.TotalConfirmed}}
       </div>
     </article>
   </section>
+  <ng-template class="table-world" #loader>Loading...</ng-template>
 </section>
