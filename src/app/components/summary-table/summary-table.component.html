@@ -1,18 +1,24 @@
 <section class="table-wrapper">
   <section class="table-world" *ngIf="!loading; else loader">
-    <h2>Total confirmed:
-      {{global.TotalConfirmed | json | number}}
+    <h2>{{appState.currentStat}}:
+      {{global[appState.currentStat] | json | number}}
     </h2>
+    <p>{{countries[0].Date | date: 'medium'}}</p>
     <hr/>
     <article class="table-countries">
       <input list="countries" id="table-countries__input" [(ngModel)]="currentField">
       <datalist id="countries">
         <option *ngFor="let country of countries | filter:currentField | sort">{{country.Country}}</option>
       </datalist>
+      <div class="table-selector">
+        <button (click)="appState.downState()"><</button>
+        {{appState.currentStat}}
+        <button (click)="appState.downState()">></button>
+      </div>
       <div class="table-countries__country" *ngFor="let country of countries | filter:currentField | sort">
         {{country.Country}} <img src="https://www.countryflags.io/{{country.CountryCode}}/flat/32.png">
         <br>
-        {{country.TotalConfirmed}}
+        {{country[appState.currentStat]}}
       </div>
     </article>
   </section>
