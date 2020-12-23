@@ -17,6 +17,7 @@ export class MapComponent implements OnInit {
   countries!: Country[];
   global!: Global;
   loading = false;
+  max!: number;
 
   constructor(private mapbox: MapboxService, private httpService: HttpRequestsService) {
    }
@@ -35,13 +36,20 @@ export class MapComponent implements OnInit {
     this.getCountries();
   }
 
-  createMarker(lng: number, lat: number, size: number): void {
+  createMarker(lng: number, lat: number, size: number, country: string, countryCode: string, currentStat: number): void {
     const el = document.createElement('div');
     el.className = 'marker';
-    el.style.width = `${size * 100 / 18035209}px`;
-    el.style.height = `${size * 100 / 18035209}px`;
-    new Mapboxgl.Marker(el)
-      .setLngLat(new Mapboxgl.LngLat(lng, lat))
+    const markerSize = size * 100 / this.max < 10 ? 10 : size * 100 / this.max;
+    el.style.width = `${markerSize}px`;
+    el.style.height = `${markerSize}px`;
+    el.addEventListener('click', () => console.log(el));
+    const marker: Mapboxgl.Marker = new Mapboxgl.Marker(el)
+      .setLngLat(new Mapboxgl.LngLat(lng, lat));
+    marker.setPopup(new Mapboxgl.Popup({ offset: 25 }) // add popups
+      .setHTML(`<h3>${country}
+        <img src="https://www.countryflags.io/${countryCode}/flat/16.png">
+      </h3>
+      <p>Total confirmed: ${currentStat}</p>`))
       .addTo(this.map);
   }
 
@@ -49,16 +57,18 @@ export class MapComponent implements OnInit {
     const sub = this.httpService.pullRequest()
       .subscribe((response) => {
         this.countries = response.Countries;
+        this.max = this.countries
+          .sort((country1, country2) => country1.TotalConfirmed > country2.TotalConfirmed ? -1 : 1)[0].TotalConfirmed;
         this.drawMap();
         sub.unsubscribe();
-      });
+    });
   }
 
   drawMap(): void {
     this.countries.forEach((country) => {
       const inSub = this.mapbox.searchCountry(country.Country).subscribe((innerResponse) => {
         this.center = innerResponse.features[0].center;
-        this.createMarker(...this.center, country.TotalConfirmed);
+        this.createMarker(...this.center, country.TotalConfirmed, country.Country, country.CountryCode, country.TotalConfirmed);
         inSub.unsubscribe();
         this.loading = false;
       });
