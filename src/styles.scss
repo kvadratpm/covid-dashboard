@@ -1,0 +1,16 @@
+
+.marker {
+  background: red;
+  background-size: cover;
+  border: 1px solid gray;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.marker:hover {
+  transform: scale(1.025);
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}

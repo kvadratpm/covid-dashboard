@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Country, HttpRequestsService } from 'src/app/services/http-requests.service';
+import { EventEmitter } from '@angular/core';
+import { Global, Country, HttpRequestsService } from 'src/app/services/http-requests.service';
 
 @Component({
   selector: 'app-summary-table',
@@ -11,18 +12,21 @@ export class SummaryTableComponent implements OnInit {
 
   currentField!: string;
   form!: FormGroup;
+  global!: Global;
+  countries!: Country[];
+  loading = false;
 
-  constructor(public httpService: HttpRequestsService) {
+  constructor(private httpService: HttpRequestsService) {
   }
 
-  async ngOnInit(): Promise<void> {
-    await this.httpService.pullRequest();
-    this.form = new FormGroup({
-      country: new FormControl('')
-    });
-  }
-
-  submit(): void {
-    console.log(this.form);
+  ngOnInit(): void {
+    this.loading = true;
+    const sub = this.httpService.pullRequest()
+      .subscribe((response) => {
+        this.global = response.Global;
+        this.countries = response.Countries;
+        this.loading = false;
+        sub.unsubscribe();
+      });
   }
 }
