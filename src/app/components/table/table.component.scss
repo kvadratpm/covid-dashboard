@@ -1,5 +1,6 @@
 .table-wrapper {
   display: flex;
+  flex-direction: column;
   border: 2px solid rgb(255, 208, 0);
   border-radius: 10px;
   width: 500px;
@@ -7,13 +8,17 @@
   h2{
     padding-left: 0.5vw;
   }
-  .table-countries {
-    height: 400px;
-    overflow: auto;
-    .table-countries__country {
-      border: 2px solid green;
-      border-radius: 5px;
-      margin: 1px;
+  .tables {
+    display: flex;
+    .table-countries {
+      height: 400px;
+      overflow: auto;
+      .table-countries__country {
+        border: 2px solid green;
+        border-radius: 5px;
+        margin: 1px;
+      }
     }
   }
+
 }

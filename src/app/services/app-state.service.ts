@@ -20,18 +20,20 @@ export class AppStateService {
 
   currentStat!: string;
 
+  currentField!: string;
+
 
   constructor() {
     this.currentStat = this.stats[this.statNum];
   }
 
   upState(): void {
-    this.statNum = this.statNum === 5 ? 0 : this.statNum += 1;
+    this.statNum = this.statNum === this.stats.length - 1 ? 0 : this.statNum += 1;
     this.currentStat = this.stats[this.statNum];
   }
 
   downState(): void {
-    this.statNum = this.statNum === 5 ? 0 : this.statNum += 1;
+    this.statNum = this.statNum === this.stats.length - 1 ? 0 : this.statNum += 1;
     this.currentStat = this.stats[this.statNum];
   }
 
