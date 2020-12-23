@@ -22,6 +22,7 @@ export class SummaryTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    alert('Пожалуйста! Если не сложно, отложите проверку на воскресенье и оставьте контакты! Доделываем!');
     this.loading = true;
     const sub = this.httpService.pullRequest()
       .subscribe((response) => {
