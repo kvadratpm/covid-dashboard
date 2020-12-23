@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FilterPipe } from './pipes/filter.pipe';
 import { CovidChartComponent } from './components/covid-chart/covid-chart.component';
 import { SelectorComponent } from './components/selector/selector.component';
+import { TableComponent } from './components/table/table.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { SelectorComponent } from './components/selector/selector.component';
     SortPipe,
     FilterPipe,
     CovidChartComponent,
-    SelectorComponent
+    SelectorComponent,
+    TableComponent
   ],
   imports: [
     BrowserModule,

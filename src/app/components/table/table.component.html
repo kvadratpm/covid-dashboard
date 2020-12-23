@@ -1,0 +1,36 @@
+<section class="table-wrapper">
+  <section class="table-world">
+    <h2>Total deaths:
+      {{httpService.global.TotalDeaths | json | number}}
+    </h2>
+    <hr/>
+    <article class="table-countries">
+      <input list="countries" id="table-countries__input" [(ngModel)]="currentField">
+      <datalist id="countries">
+        <option *ngFor="let country of httpService.countries | filter:currentField | sort">{{country.Country}}</option>
+      </datalist>
+      <div class="table-countries__country" *ngFor="let country of httpService.countries | filter:currentField | sort">
+        {{country.Country}} <img src="https://www.countryflags.io/{{country.CountryCode}}/flat/32.png">
+        <br>
+        {{country.TotalDeaths}}
+      </div>
+    </article>
+  </section>
+  <section class="table-world">
+    <h2>Total recovered:
+      {{httpService.global.TotalRecovered | json | number}}
+    </h2>
+    <hr/>
+    <article class="table-countries">
+      <input list="countries" id="table-countries__input" [(ngModel)]="currentField">
+      <datalist id="countries">
+        <option *ngFor="let country of httpService.countries | filter:currentField | sort">{{country.Country}}</option>
+      </datalist>
+      <div class="table-countries__country" *ngFor="let country of httpService.countries | filter:currentField | sort">
+        {{country.Country}} <img src="https://www.countryflags.io/{{country.CountryCode}}/flat/32.png">
+        <br>
+        {{country.TotalRecovered}}
+      </div>
+    </article>
+  </section>
+</section>
