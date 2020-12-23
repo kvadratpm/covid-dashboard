@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { EventEmitter } from '@angular/core';
 import { Global, Country, HttpRequestsService } from 'src/app/services/http-requests.service';
 
 @Component({
@@ -15,20 +16,17 @@ export class SummaryTableComponent implements OnInit {
   countries!: Country[];
   loading = false;
 
-  constructor(public httpService: HttpRequestsService) {
+  constructor(private httpService: HttpRequestsService) {
   }
 
   ngOnInit(): void {
     this.loading = true;
-    this.httpService.pullRequest()
+    const sub = this.httpService.pullRequest()
       .subscribe((response) => {
         this.global = response.Global;
         this.countries = response.Countries;
         this.loading = false;
+        sub.unsubscribe();
       });
-  }
-
-  submit(): void {
-    console.log(this.form);
   }
 }
