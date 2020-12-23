@@ -5,6 +5,7 @@ import { Global, Country, HttpRequestsService } from 'src/app/services/http-requ
 import { AppStateService } from 'src/app/services/app-state.service';
 
 
+
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
@@ -37,15 +38,36 @@ export class TableComponent implements OnInit {
 
   }
   go(n: number): void{
-    
+    console.log(this.i);
+    let el;
+    if(this.i == 0){
+      el = document.getElementById('days')
+
+    } else {
+      el = document.getElementById(this.types[this.i])
+    }
+
+
+    el!.style.display = 'none';
+
     this.i = this.i + n;
     if (this.i > 2){
       this.i = 3 - this.i;
     } else if (this.i < 0){
       this.i = 1 - this.i;
     }
-    if(this.i == 2)
+
     this.table_type = this.types[this.i]
+
+    if(this.i == 0){
+      el = document.getElementById('days')
+
+    } else {
+      el = document.getElementById(this.types[this.i])
+    }
+
+
+    el!.style.display = 'flex';
 
   }
 

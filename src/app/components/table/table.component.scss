@@ -1,6 +1,9 @@
 #New{
   display: none;
 }
+#days{
+  display: none;
+}
 .table-wrapper {
   display: flex;
   flex-direction: column;
@@ -14,7 +17,7 @@
 
   .table-countries {
 
-    height: 400px;
+    height: 300px;
     overflow: auto;
     .table-countries__country {
       border: 2px solid green;
