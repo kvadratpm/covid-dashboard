@@ -2,6 +2,8 @@ import { Component, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { EventEmitter } from '@angular/core';
 import { Global, Country, HttpRequestsService } from 'src/app/services/http-requests.service';
+import { AppStateService } from 'src/app/services/app-state.service';
+import { state } from '@angular/animations';
 
 @Component({
   selector: 'app-summary-table',
@@ -16,7 +18,7 @@ export class SummaryTableComponent implements OnInit {
   countries!: Country[];
   loading = false;
 
-  constructor(private httpService: HttpRequestsService) {
+  constructor(private httpService: HttpRequestsService, public appState: AppStateService) {
   }
 
   ngOnInit(): void {

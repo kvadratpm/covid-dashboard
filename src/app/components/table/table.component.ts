@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { EventEmitter } from '@angular/core';
 import { Global, Country, HttpRequestsService } from 'src/app/services/http-requests.service';
+import { AppStateService } from 'src/app/services/app-state.service';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class TableComponent implements OnInit {
   loading = false;
   private types = ['100 days', 'Total', 'New'];
 
-  constructor(public httpService: HttpRequestsService) { }
+  constructor(public httpService: HttpRequestsService, public appState: AppStateService) { }
 
   ngOnInit(): void {
 
