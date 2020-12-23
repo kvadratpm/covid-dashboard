@@ -23,12 +23,12 @@ export interface Country {
 }
 
 export interface Global {
-  NewConfirmed: number;
-  TotalConfirmed: number;
-  NewDeaths: number;
-  TotalDeaths: number;
-  NewRecovered: number;
-  TotalRecovered: number;
+  'NewConfirmed': number;
+  'TotalConfirmed': number;
+  'NewDeaths': number;
+  'TotalDeaths': number;
+  'NewRecovered': number;
+  'TotalRecovered': number;
 }
 
 @Injectable({

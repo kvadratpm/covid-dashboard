@@ -1,5 +1,5 @@
-import { state } from '@angular/animations';
 import { Injectable } from '@angular/core';
+import { Global } from 'src/app/services/http-requests.service';
 
 
 @Injectable({
@@ -7,18 +7,18 @@ import { Injectable } from '@angular/core';
 })
 export class AppStateService {
 
-  stats: Array<string> = [
+  stats: Array<keyof Global> = [
     'TotalConfirmed',
+    'TotalDeaths',
+    'TotalRecovered',
     'NewConfirmed',
     'NewDeaths',
-    'TotalDeaths',
-    'NewRecovered',
-    'TotalRecovered',
+    'NewRecovered'
   ];
 
   statNum = 0;
 
-  currentStat!: string;
+  currentStat!: keyof Global;
 
   currentField!: string;
 
