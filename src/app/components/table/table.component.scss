@@ -1,24 +1,54 @@
+#New{
+  display: none;
+}
+#days{
+  display: none;
+}
 .table-wrapper {
   display: flex;
   flex-direction: column;
   border: 2px solid rgb(255, 208, 0);
   border-radius: 10px;
-  width: 500px;
+  width: 400px;
   overflow: hidden;
   h2{
     padding-left: 0.5vw;
   }
-  .tables {
-    display: flex;
-    .table-countries {
-      height: 400px;
-      overflow: auto;
-      .table-countries__country {
-        border: 2px solid green;
-        border-radius: 5px;
-        margin: 1px;
-      }
+
+  .table-countries {
+
+    height: 300px;
+    overflow: auto;
+    .table-countries__country {
+      border: 2px solid green;
+      border-radius: 5px;
+      margin: 1px;
     }
+    .table-countries__country__deaths {
+      border: 2px solid red;
+      border-radius: 5px;
+      margin: 1px;
+    }
+  }
+}
+.selector{
+  margin-top: 1vw;
+  user-select: none;
+  width: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  span{
+    margin: 0 2rem;
+    text-align: center;
+    width: 200px;
+  }
+  .material-icons{
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  .material-icons:hover{
+    opacity: .4;
   }
 
 }

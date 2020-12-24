@@ -1,40 +1,86 @@
-<section class="table-wrapper" *ngIf="!loading; else loader">
-  <input list="countries" id="table-countries__input2" [(ngModel)]="appState.currentField">
+<section id ="Total" class="table-wrapper ">
+  <section class="table-world">
+    <h2>Total deaths:
+      {{global.TotalDeaths | json | number}}
+    </h2>
+    <hr/>
+    <article class="table-countries">
+      <input list="countries" id="table-countries__input" [(ngModel)]="currentField">
       <datalist id="countries">
-        <option *ngFor="let country of countries | filter:appState.currentField | sort">{{country.Country}}</option>
+        <option *ngFor="let country of countries | filter:currentField | sort">{{country.Country}}</option>
       </datalist>
-      <div class="table-selector">
-        <button (click)="appState.downState()"><</button>
-        {{appState.currentStat}}
-        <button (click)="appState.downState()">></button>
+      <div class="table-countries__country__deaths" *ngFor="let country of countries | filter:currentField | sort">
+        {{country.Country}} <img src="https://www.countryflags.io/{{country.CountryCode}}/flat/32.png">
+        <br>
+        {{country.TotalDeaths}}
       </div>
-  <section class="tables">
-    <section class="table-world">
-      <h2>{{appState.currentStat}}:
-        {{global[appState.currentStat] | json | number}}
-      </h2>
-      <hr/>
-      <article class="table-countries">
-        <div class="table-countries__country" *ngFor="let country of countries | filter:appState.currentField | sort">
-          {{country.Country}} <img src="https://www.countryflags.io/{{country.CountryCode}}/flat/32.png">
-          <br>
-          {{country[appState.currentStat]}}
-        </div>
-      </article>
-    </section>
-    <section class="table-world" *ngIf="!loading; else loader">
-      <h2>Total recovered:
-        {{global.TotalRecovered | json | number}}
-      </h2>
-      <hr/>
-      <article class="table-countries">
-        <div class="table-countries__country" *ngFor="let country of countries | filter:appState.currentField | sort">
-          {{country.Country}} <img src="https://www.countryflags.io/{{country.CountryCode}}/flat/32.png">
-          <br>
-          {{country.TotalRecovered}}
-        </div>
-      </article>
-    </section>
+    </article>
+  </section>
+  <section class="table-world">
+    <h2>Total recovered:
+      {{global.TotalRecovered | json | number}}
+    </h2>
+    <hr/>
+    <article class="table-countries">
+      <input list="countries" id="table-countries__input" [(ngModel)]="currentField">
+      <datalist id="countries">
+        <option *ngFor="let country of countries | filter:currentField | sort">{{country.Country}}</option>
+      </datalist>
+      <div class="table-countries__country" *ngFor="let country of countries | filter:currentField | sort">
+        {{country.Country}} <img src="https://www.countryflags.io/{{country.CountryCode}}/flat/32.png">
+        <br>
+        {{country.NewRecovered}}
+      </div>
+    </article>
   </section>
 </section>
-<ng-template class="table-world" #loader>Loading...</ng-template>
+
+
+<section id ="New" class="table-wrapper ">
+  <section class="table-world">
+    <h2>New deaths:
+      {{global.NewDeaths | json | number}}
+    </h2>
+    <hr/>
+    <article class="table-countries">
+      <input list="countries" id="table-countries__input" [(ngModel)]="currentField">
+      <datalist id="countries">
+        <option *ngFor="let country of countries | filter:currentField | sort">{{country.Country}}</option>
+      </datalist>
+      <div class="table-countries__country__deaths" *ngFor="let country of countries | filter:currentField | sort">
+        {{country.Country}} <img src="https://www.countryflags.io/{{country.CountryCode}}/flat/32.png">
+        <br>
+        {{country.NewDeaths}}
+      </div>
+    </article>
+  </section>
+  <section class="table-world">
+    <h2>New recovered:
+      {{global.NewRecovered | json | number}}
+    </h2>
+    <hr/>
+    <article class="table-countries">
+      <input list="countries" id="table-countries__input" [(ngModel)]="currentField">
+      <datalist id="countries">
+        <option *ngFor="let country of countries | filter:currentField | sort">{{country.Country}}</option>
+      </datalist>
+      <div class="table-countries__country" *ngFor="let country of countries | filter:currentField | sort">
+        {{country.Country}} <img src="https://www.countryflags.io/{{country.CountryCode}}/flat/32.png">
+        <br>
+        {{country.NewRecovered}}
+      </div>
+    </article>
+  </section>
+</section>
+
+<div class="selector">
+  <div class="material-icons" (click)="go(1)" >arrow_left</div>
+
+  <span>
+    {{ table_type }}
+  </span>
+
+  <div class="material-icons" (click)="go(-1)">arrow_right</div>
+
+</div>
+

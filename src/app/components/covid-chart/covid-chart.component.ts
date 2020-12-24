@@ -37,7 +37,7 @@ export class CovidChartComponent implements OnInit {
 
   }
   ngOnInit() {
-  console.log("SS")
+
 
   this.draw();
   };
