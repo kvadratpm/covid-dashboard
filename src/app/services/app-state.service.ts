@@ -7,13 +7,15 @@ import { Global } from 'src/app/services/http-requests.service';
 })
 export class AppStateService {
 
-  stats: Array<keyof Global> = [
-    'TotalConfirmed',
-    'TotalDeaths',
-    'TotalRecovered',
-    'NewConfirmed',
-    'NewDeaths',
-    'NewRecovered'
+  allTime: Array<keyof Global> = [
+      'TotalConfirmed',
+      'TotalDeaths',
+      'TotalRecovered',
+  ];
+  today: Array<keyof Global> = [
+      'NewConfirmed',
+      'NewDeaths',
+      'NewRecovered',
   ];
 
   statNum = 0;
@@ -22,19 +24,27 @@ export class AppStateService {
 
   currentField!: string;
 
+  statsForToday = false;
+
 
   constructor() {
-    this.currentStat = this.stats[this.statNum];
+    this.currentStat = this.statsForToday ? this.today[this.statNum] : this.allTime[this.statNum];
   }
 
   upState(): void {
-    this.statNum = this.statNum === this.stats.length - 1 ? 0 : this.statNum += 1;
-    this.currentStat = this.stats[this.statNum];
+    this.statNum = this.statNum === this.allTime.length - 1 ? 0 : this.statNum += 1;
+    this.currentStat = this.statsForToday ? this.today[this.statNum] : this.allTime[this.statNum];
   }
 
   downState(): void {
-    this.statNum = this.statNum === this.stats.length - 1 ? 0 : this.statNum += 1;
-    this.currentStat = this.stats[this.statNum];
+    this.statNum = this.statNum === 0 ? this.statNum = 2 : this.statNum -= 1;
+    this.currentStat = this.statsForToday ? this.today[this.statNum] : this.allTime[this.statNum];
+  }
+
+  changeToday(): void {
+    this.statsForToday = this.statsForToday ? false : true;
+    this.upState();
+    this.downState()
   }
 
 }

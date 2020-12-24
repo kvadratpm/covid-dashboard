@@ -4,11 +4,15 @@
   height: 800px;
   overflow: hidden;
   .table-countries {
-    height: 800px;
+    height: 650px;
     overflow: auto;
     .table-countries__country {
       border: 2px solid green;
       margin: 1px;
     }
+  }
+  .table-selectors {
+    display: flex;
+    justify-content: space-between;
   }
 }

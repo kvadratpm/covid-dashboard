@@ -4,11 +4,6 @@
       {{global[appState.currentStat] | json | number}}
     </h2>
     <p>{{countries[0].Date | date: 'medium'}}</p>
-    <div class="table-selector">
-      <button (click)="appState.downState()"><</button>
-      {{appState.currentStat}}
-      <button (click)="appState.downState()">></button>
-    </div>
     <hr/>
     <article class="table-countries">
       <input list="countries" id="table-countries__input" [(ngModel)]="appState.currentField">
@@ -21,6 +16,19 @@
         {{country[appState.currentStat]}}
       </div>
     </article>
+    <hr/>
+    <section class="table-selectors">
+      <div class="table-selector">
+        <button (click)="appState.downState()"><</button>
+        {{appState.statsForToday ? appState.currentStat.replace('New', '') : appState.currentStat.replace('Total', '')}}
+        <button (click)="appState.upState()">></button>
+      </div>
+      <div class="table-selector">
+        <button (click)="appState.changeToday()"><</button>
+        {{appState.statsForToday ? 'Today' : 'All time'}}
+        <button (click)="appState.changeToday()">></button>
+      </div>
+    </section>
   </section>
   <ng-template class="table-world" #loader>Loading...</ng-template>
 </section>
