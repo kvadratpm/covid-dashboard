@@ -26,6 +26,8 @@ export class AppStateService {
 
   statsForToday = false;
 
+  statsForPoopulation = false;
+
 
   constructor() {
     this.currentStat = this.statsForToday ? this.today[this.statNum] : this.allTime[this.statNum];
@@ -44,7 +46,13 @@ export class AppStateService {
   changeToday(): void {
     this.statsForToday = this.statsForToday ? false : true;
     this.upState();
-    this.downState()
+    this.downState();
+  }
+
+  changePopulation(): void {
+    this.statsForPoopulation = this.statsForPoopulation ? false : true;
+    this.upState();
+    this.downState();
   }
 
 }

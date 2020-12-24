@@ -13,20 +13,25 @@
       <div class="table-countries__country" *ngFor="let country of countries | filter:appState.currentField | sort">
         {{country.Country}} <img src="https://www.countryflags.io/{{country.CountryCode}}/flat/32.png">
         <br>
-        {{country[appState.currentStat]}}
+        {{appState.statsForPoopulation? country[appState.currentStat] / 1000000 : country[appState.currentStat] | number}}
       </div>
     </article>
     <hr/>
     <section class="table-selectors">
-      <div class="table-selector">
+      <div class="table-selector" id="stats">
         <button (click)="appState.downState()"><</button>
         {{appState.statsForToday ? appState.currentStat.replace('New', '') : appState.currentStat.replace('Total', '')}}
         <button (click)="appState.upState()">></button>
       </div>
-      <div class="table-selector">
+      <div class="table-selector" id="day">
         <button (click)="appState.changeToday()"><</button>
         {{appState.statsForToday ? 'Today' : 'All time'}}
         <button (click)="appState.changeToday()">></button>
+      </div>
+      <div class="table-selector" id="population">
+        <button (click)="appState.changePopulation()"><</button>
+        {{appState.statsForPoopulation ? 'By 100k' : 'All'}}
+        <button (click)="appState.changePopulation()">></button>
       </div>
     </section>
   </section>
