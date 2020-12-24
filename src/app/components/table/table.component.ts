@@ -20,7 +20,7 @@ export class TableComponent implements OnInit {
   global!: Global;
   countries!: Country[];
   loading = false;
-  private types = ['100 days', 'Total', 'New'];
+  private types = ['100 thousand', 'Total', 'New'];
 
   constructor(public httpService: HttpRequestsService, public appState: AppStateService) { }
 

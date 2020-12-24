@@ -73,6 +73,43 @@
   </section>
 </section>
 
+<section id ="days" class="table-wrapper ">
+  <section class="table-world">
+    <h2>On 100000 (deaths) :
+      {{global.NewDeaths / 100 | json | number}}
+    </h2>
+    <hr/>
+    <article class="table-countries">
+      <input list="countries" id="table-countries__input" [(ngModel)]="currentField">
+      <datalist id="countries">
+        <option *ngFor="let country of countries | filter:currentField | sort">{{country.Country}}</option>
+      </datalist>
+      <div class="table-countries__country__deaths" *ngFor="let country of countries | filter:currentField | sort">
+        {{country.Country}} <img src="https://www.countryflags.io/{{country.CountryCode}}/flat/32.png">
+        <br>
+        {{country.NewDeaths}}
+      </div>
+    </article>
+  </section>
+  <section class="table-world">
+    <h2>On 100000 (recovered):
+      {{global.NewRecovered / 100 | json | number}}
+    </h2>
+    <hr/>
+    <article class="table-countries">
+      <input list="countries" id="table-countries__input" [(ngModel)]="currentField">
+      <datalist id="countries">
+        <option *ngFor="let country of countries | filter:currentField | sort">{{country.Country}}</option>
+      </datalist>
+      <div class="table-countries__country" *ngFor="let country of countries | filter:currentField | sort">
+        {{country.Country}} <img src="https://www.countryflags.io/{{country.CountryCode}}/flat/32.png">
+        <br>
+        {{country.NewRecovered}}
+      </div>
+    </article>
+  </section>
+</section>
+
 <div class="selector">
   <div class="material-icons" (click)="go(1)" >arrow_left</div>
 
