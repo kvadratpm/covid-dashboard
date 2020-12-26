@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart, ChartColor } from 'chart.js';
+import { AppStateService } from 'src/app/services/app-state.service';
 
 import {Summary, HttpRequestsService, Global, Country} from '../../services/http-requests.service';
 
@@ -17,7 +18,7 @@ export class CovidChartComponent implements OnInit {
   private types = ['Confirmed', 'Deaths', 'Recovered'];
   private i = 1;
 
-  constructor(private httpService: HttpRequestsService) {}
+  constructor(private httpService: HttpRequestsService, public appState: AppStateService) {}
 
 
 
@@ -32,21 +33,19 @@ export class CovidChartComponent implements OnInit {
 
 
 
-    this.chartType = this.types[this.i]
+    this.chartType = this.types[this.i];
     this.draw();
 
   }
-  ngOnInit() {
+  ngOnInit(): void {
+ this.draw();
+  }
 
-
-  this.draw();
-  };
-
-  draw(){
+  draw(): void{
     const type = this.chartType;
-    let color:ChartColor;
+    let color: ChartColor;
     if (type === 'Confirmed'){
-      color = 'rgba(255, 99, 132, 1)';
+      color = 'rgba(255, 99, 71, 1)';
     } else if (type === 'Recovered'){
       color = '#31E981';
     }
@@ -55,7 +54,7 @@ export class CovidChartComponent implements OnInit {
       const covidData: any = summary;
       const len: number = covidData.length;
 
-      const myChart = new Chart('myChart', {
+      const myChart = new Chart('my-chart', {
         type: 'line',
         data: {
             labels: [
@@ -65,7 +64,7 @@ export class CovidChartComponent implements OnInit {
               covidData[len - 4].Date.slice(0, 10).replace(/-/gi, '.'),
               covidData[len - 3].Date.slice(0, 10).replace(/-/gi, '.'),
               covidData[len - 2].Date.slice(0, 10).replace(/-/gi, '.'),
-              covidData[len - 1].Date.slice(0, 10).replace(/-/gi, '.')
+              covidData[len - 1].Date.slice(0, 10).replace(/-/gi, '.'),
             ],
             datasets: [{
                 label: type,
@@ -94,13 +93,25 @@ export class CovidChartComponent implements OnInit {
             }]
         },
         options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: false
-                    }
-                }]
+          legend: {
+            labels: {
+                fontColor: 'wheat'
             }
+          },
+          scales: {
+            xAxes: [{
+              ticks: {
+                beginAtZero: false,
+                fontColor: 'wheat',
+            }
+            }],
+              yAxes: [{
+                  ticks: {
+                      beginAtZero: false,
+                      fontColor: 'wheat',
+                  }
+              }]
+          }
         }
       });
 

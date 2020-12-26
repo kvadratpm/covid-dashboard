@@ -21,4 +21,9 @@ export class MapboxService {
     .get<FeatureCollection>
     (`https://api.mapbox.com/geocoding/v5/mapbox.places/${country}.json?types=country&access_token=${environment.mapBoxKey}`);
   }
+
+  getBoundaries(): Observable<FeatureCollection> {
+    return this.http
+      .get<FeatureCollection>('https://raw.githubusercontent.com/mapbox/geojson-vt-cpp/master/data/countries.geojson');
+  }
 }

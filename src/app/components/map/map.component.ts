@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import * as Mapboxgl from 'mapbox-gl';
-import { MapboxService } from 'src/app/services/mapbox.service';
+import { FeatureCollection, MapboxService } from 'src/app/services/mapbox.service';
 import { Country, Global, HttpRequestsService } from 'src/app/services/http-requests.service';
 import { style } from '@angular/animations';
+import { AppStateService } from 'src/app/services/app-state.service';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -18,13 +19,18 @@ export class MapComponent implements OnInit {
   global!: Global;
   loading = false;
   max!: number;
+  hoveredStateId!: any;
+  boundaries!: FeatureCollection;
 
-  constructor(private mapbox: MapboxService, private httpService: HttpRequestsService) {
+  constructor(private mapbox: MapboxService, private httpService: HttpRequestsService, private appState: AppStateService) {
    }
 
   ngOnInit(): void {
     (Mapboxgl as typeof Mapboxgl).accessToken = environment.mapBoxKey;
     this.loading = true;
+    this.hoveredStateId = null;
+
+    this.mapbox.getBoundaries().subscribe((response) => this.boundaries = response);
 
     this.map = new Mapboxgl.Map({
       container: 'map',
@@ -42,7 +48,8 @@ export class MapComponent implements OnInit {
     const markerSize = size * 100 / this.max < 10 ? 10 : size * 100 / this.max;
     el.style.width = `${markerSize}px`;
     el.style.height = `${markerSize}px`;
-    el.addEventListener('click', () => console.log(el));
+    el.id = country;
+    el.addEventListener('click', () => this.setCurrentCountry(el.id));
     const marker: Mapboxgl.Marker = new Mapboxgl.Marker(el)
       .setLngLat(new Mapboxgl.LngLat(lng, lat));
     marker.setPopup(new Mapboxgl.Popup({ offset: 25 }) // add popups
@@ -72,6 +79,16 @@ export class MapComponent implements OnInit {
         inSub.unsubscribe();
         this.loading = false;
       });
+    });
+  }
+
+  setCurrentCountry(country: string): void {
+    this.appState.currentCountry = country;
+    this.countries.forEach((elem) => {
+      if (elem.Country === this.appState.currentCountry) {
+        this.appState.currentCountryObj = elem;
+        return;
+      }
     });
   }
 
