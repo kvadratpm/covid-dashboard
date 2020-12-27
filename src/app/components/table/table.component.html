@@ -1,0 +1,60 @@
+<section class="table-wrapper">
+  <section class="table-world" *ngIf="!loading; else loader">
+    <h2 class="table-world__title">{{appState.currentStat}}:
+      <p class="table-world__text">{{global[appState.currentStat] | json | number}}</p>
+    </h2>
+    <article class="table-selectors">
+      <div class="table-selector" id="stats">
+        <button (click)="appState.downState()"><</button>
+        {{appState.statsForToday ? appState.currentStat.replace('New', '') : appState.currentStat.replace('Total', '')}}
+        <button (click)="appState.upState()">></button>
+      </div>
+      <div class="table-selector" id="day">
+        <button (click)="appState.changeToday()"><</button>
+        {{appState.statsForToday ? 'Today' : 'All time'}}
+        <button (click)="appState.changeToday()">></button>
+      </div>
+      <div class="table-selector" id="population">
+        <button (click)="appState.changePopulation()"><</button>
+        {{appState.statsForPoopulation ? 'By 100k' : 'All'}}
+        <button (click)="appState.changePopulation()">></button>
+      </div>
+    </article>
+    <input list="countries" class="table-countries__search" id="table-countries__input"
+    placeholder="Enter country..." [(ngModel)]="appState.currentField">
+      <datalist class="table-coutnries__list" id="countries">
+        <option *ngFor="let country of countries | filter:appState.currentField | sort">{{country.Country}}</option>
+      </datalist>
+    <article class="table-countries" id="deaths" *ngIf="!appState.currentCountry; else country">
+      <div (click)="setCurrentCountry(country.Country)" class="table-countries__country" *ngFor="let country of countries | filter:appState.currentField | sort">
+        <div class="country-name">
+          <p>{{country.Country}}</p>
+          <p class="country-name_stat">{{appState.statsForPoopulation? country[appState.currentStat] / 100 : country[appState.currentStat] | number}}</p>
+        </div>
+        <img src="https://www.countryflags.io/{{country.CountryCode}}/flat/32.png">
+      </div>
+    </article>
+    <ng-template #country>
+      <div class='table-current-country'>
+        <h2 class="table-world__title">{{appState.currentCountryObj.Country}}</h2>
+        <img src="https://www.countryflags.io/{{appState.currentCountryObj.CountryCode}}/flat/64.png">
+        <p class="table-world__text">Confirmed: {{appState.statsForPoopulation? appState.currentCountryObj[appState.statsForToday ? 'NewConfirmed' : 'TotalConfirmed'] / 100 : appState.currentCountryObj[appState.statsForToday ? 'NewConfirmed' : 'TotalConfirmed'] | number}}</p>
+        <p class="table-world__text">Deaths: {{appState.statsForPoopulation? appState.currentCountryObj[appState.statsForToday ? 'NewDeaths' : 'TotalDeaths'] / 100 : appState.currentCountryObj[appState.statsForToday ? 'NewDeaths' : 'TotalDeaths'] | number}}</p>
+        <p class="table-world__ text">Recovered: {{appState.statsForPoopulation? appState.currentCountryObj[appState.statsForToday ? 'NewRecovered' : 'TotalRecovered'] / 100 : appState.currentCountryObj[appState.statsForToday ? 'NewRecovered' : 'TotalRecovered'] | number}}</p>
+      </div>
+    </ng-template>
+    <h2 class="table-world__title">{{appState.statsForToday ? 'NewRecovered' : 'TotalRecovered'}}:
+      <p class="table-world__text-recovered">{{appState.statsForPoopulation? global[appState.statsForToday ? 'NewRecovered' : 'TotalRecovered'] / 100 : global[appState.statsForToday ? 'NewRecovered' : 'TotalRecovered'] | number}}</p>
+    </h2>
+    <article class="table-countries" id="recovered">
+      <div (click)="setCurrentCountry(country.Country)" class="table-countries__country" *ngFor="let country of countries | filter:appState.currentField | sort">
+        <div class="country-name">
+          <p>{{country.Country}}</p>
+          <p class="country-name_stat">{{appState.statsForPoopulation? country[appState.statsForToday ? 'NewRecovered' : 'TotalRecovered'] / 100 : country[appState.statsForToday ? 'NewRecovered' : 'TotalRecovered'] | number}}</p>
+        </div>
+        <img src="https://www.countryflags.io/{{country.CountryCode}}/flat/32.png">
+      </div>
+    </article>
+  </section>
+  <ng-template class="table-world" #loader>Loading...</ng-template>
+</section>

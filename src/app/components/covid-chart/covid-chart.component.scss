@@ -1,0 +1,63 @@
+#div-chart{
+    display: flex;
+    width: 35%;
+    height: 210px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 0;
+    #my-chart {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: wheat;
+    }
+}
+.selector{
+  user-select: none;
+  width: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  span{
+    margin: 0 2rem;
+    text-align: center;
+    width: 200px;
+  }
+  .material-icons{
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  .material-icons:hover{
+    opacity: .4;
+  }
+}
+
+.table-selectors {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  z-index: 10;
+  .table-selector {
+    width: 33%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    button {
+      width: 20px;
+      height: 20px;
+      border: none;
+      background: #64AAD0;
+      color: white;
+    }
+    button:hover {
+      cursor: pointer;
+      background: #3C9DD0;
+    }
+    button:focus {
+      outline: none;
+    }
+  }
+}

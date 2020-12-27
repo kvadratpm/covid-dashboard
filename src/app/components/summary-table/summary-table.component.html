@@ -1,0 +1,40 @@
+<section class="table-wrapper">
+  <section class="table-world" *ngIf="!loading; else loader">
+    <h2 class="table-world__title">{{appState.currentStat}}:
+      <p class="table-world__text">{{global[appState.currentStat] | json | number}}</p>
+    </h2>
+    <p class="table-world__time">{{countries[0].Date | date: 'medium'}}</p>
+    <article class="table-selectors">
+      <div class="table-selector" id="stats">
+        <button (click)="appState.downState()"><</button>
+        {{appState.statsForToday ? appState.currentStat.replace('New', '') : appState.currentStat.replace('Total', '')}}
+        <button (click)="appState.upState()">></button>
+      </div>
+      <div class="table-selector" id="day">
+        <button (click)="appState.changeToday()"><</button>
+        {{appState.statsForToday ? 'Today' : 'All time'}}
+        <button (click)="appState.changeToday()">></button>
+      </div>
+      <div class="table-selector" id="population">
+        <button (click)="appState.changePopulation()"><</button>
+        {{appState.statsForPoopulation ? 'By 100k' : 'All'}}
+        <button (click)="appState.changePopulation()">></button>
+      </div>
+    </article>
+    <input list="countries" class="table-countries__search" id="table-countries__input"
+    placeholder="Enter country..." [(ngModel)]="appState.currentField">
+      <datalist class="table-coutnries__list" id="countries">
+        <option *ngFor="let country of countries | filter:appState.currentField | sort">{{country.Country}}</option>
+      </datalist>
+    <article class="table-countries">
+      <div (click)="setCurrentCountry(country.Country)" class="table-countries__country" *ngFor="let country of countries | filter:appState.currentField | sort">
+        <div class="country-name">
+          <p>{{country.Country}}</p>
+          <p class="country-name_stat">{{appState.statsForPoopulation? country[appState.currentStat] / 100 : country[appState.currentStat] | number}}</p>
+        </div>
+        <img src="https://www.countryflags.io/{{country.CountryCode}}/flat/32.png">
+      </div>
+    </article>
+  </section>
+  <ng-template class="table-world" #loader>Loading...</ng-template>
+</section>
