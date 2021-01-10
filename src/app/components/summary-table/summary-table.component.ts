@@ -31,4 +31,14 @@ export class SummaryTableComponent implements OnInit {
         sub.unsubscribe();
       });
   }
+
+  setCurrentCountry(country: string): void {
+    this.appState.currentCountry = country;
+    this.countries.forEach((elem) => {
+      if (elem.Country === this.appState.currentCountry) {
+        this.appState.currentCountryObj = elem;
+        return;
+      }
+    });
+  }
 }

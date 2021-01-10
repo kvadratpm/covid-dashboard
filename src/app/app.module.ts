@@ -8,7 +8,6 @@ import { SortPipe } from './pipes/sort.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FilterPipe } from './pipes/filter.pipe';
 import { CovidChartComponent } from './components/covid-chart/covid-chart.component';
-import { SelectorComponent } from './components/selector/selector.component';
 import { TableComponent } from './components/table/table.component';
 
 @NgModule({
@@ -19,7 +18,6 @@ import { TableComponent } from './components/table/table.component';
     SortPipe,
     FilterPipe,
     CovidChartComponent,
-    SelectorComponent,
     TableComponent
   ],
   imports: [

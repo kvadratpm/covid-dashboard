@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Global } from 'src/app/services/http-requests.service';
+import { Country, Global } from 'src/app/services/http-requests.service';
 
 
 @Injectable({
@@ -23,6 +23,10 @@ export class AppStateService {
   currentStat!: keyof Global;
 
   currentField!: string;
+
+  currentCountry = '';
+
+  currentCountryObj!: Country;
 
   statsForToday = false;
 
