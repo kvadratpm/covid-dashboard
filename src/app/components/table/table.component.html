@@ -87,7 +87,7 @@
       <div class="table-countries__country__deaths" *ngFor="let country of countries | filter:currentField | sort">
         {{country.Country}} <img src="https://www.countryflags.io/{{country.CountryCode}}/flat/32.png">
         <br>
-        {{country.NewDeaths}}
+        {{country.NewDeaths / 100}}
       </div>
     </article>
   </section>
@@ -104,7 +104,7 @@
       <div class="table-countries__country" *ngFor="let country of countries | filter:currentField | sort">
         {{country.Country}} <img src="https://www.countryflags.io/{{country.CountryCode}}/flat/32.png">
         <br>
-        {{country.NewRecovered}}
+        {{country.NewRecovered / 100}}
       </div>
     </article>
   </section>
